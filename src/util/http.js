@@ -4,9 +4,7 @@
  */
 
 import axios from 'axios';
-
 import * as util from './util';
-
 import { handleResult, createLoading, handleError, showError } from './httpUtil';
 
 const baseURL = (typeof config !== 'undefined') ? config.host + ':' + config.port : '';
