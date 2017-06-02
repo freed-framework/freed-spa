@@ -11,7 +11,9 @@ axios.defaults.timeout = 10000;
 axios.defaults.headers = {
     'Content-Type': 'application/json;charset=UTF-8'
 };
-alert(1)
+alert(1);
+console.log(12312312);
+
 // http request 拦截器
 // axios.interceptors.request.use(
 //     config => {
@@ -27,7 +29,7 @@ axios.interceptors.response.use(
     error => {
         if (error.response) {
             const status = error.response.status;
-            if (status === 401) {
+            if(status === 401){
                 // case 401:
                 // 返回 401 清除token信息并跳转到登录页面
                 // store.commit(types.LOGOUT);
