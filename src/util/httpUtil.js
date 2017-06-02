@@ -46,7 +46,7 @@ export const createLoading = (url) => {
     requestingList.push(url);
     let timeoutShow = null;
     if (!loading) {
-        timeoutShow = setTimeout(function () {
+        timeoutShow = setTimeout(() => {
             if (requestingList.length > 0 && !loading) {
                 loading = message.loading('数据加载中...', 0);
             }
@@ -56,7 +56,7 @@ export const createLoading = (url) => {
         clearTimeout(timeoutClose);
         timeoutClose = null;
     }
-    return function () {
+    return () => {
         if (timeoutShow) {
             clearTimeout(timeoutShow);
             timeoutShow = null;
@@ -65,7 +65,7 @@ export const createLoading = (url) => {
             requestingList.splice(requestingList.indexOf(url), 1);
         }
         if (requestingList.length === 0) {
-            timeoutClose = setTimeout(function () {
+            timeoutClose = setTimeout(() => {
                 if (requestingList.length === 0 && loading) {
                     loading();
                     loading = null;
