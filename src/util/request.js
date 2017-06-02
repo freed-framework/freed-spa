@@ -11,7 +11,7 @@ axios.defaults.timeout = 10000;
 axios.defaults.headers = {
     'Content-Type': 'application/json;charset=UTF-8'
 };
-
+alert(1)
 // http request 拦截器
 // axios.interceptors.request.use(
 //     config => {
