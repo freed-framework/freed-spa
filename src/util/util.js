@@ -5,14 +5,13 @@
  * 公共工具
  */
 
-
 /**
  * 拼接查询字符串
  * 
  * @param {Object} obj 查询数据对象
  * @return {string} 拼接后的字符串
  */
-export function parseQuerystring(obj) {
+export const parseQuerystring = (obj) => {
     let result = '';
     if (obj) {
         let tmp = [];
