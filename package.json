@@ -12,6 +12,7 @@
     "pre-commit"
   ],
   "dependencies": {
+    "antd": "^2.10.4",
     "babel-runtime": "6.x",
     "connect": "^3.6.1",
     "history": "^4.6.1",
