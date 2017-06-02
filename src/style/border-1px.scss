@@ -1,0 +1,90 @@
+/**
+ * @file border-1px.scss
+ * @author denglingbo
+ *
+ * 边框1像素
+ *
+ */
+
+/**
+ * @param {$type} 哪个位置有边框
+ * @param {$border-color} 边框颜色
+ * @param {$size} 边线尺寸
+ */
+@mixin border-1px($type, $border-color: #E1E1E6, $size: 1px, $border-radius: 0) {
+
+    $border-width: border-#{$type}-width;
+
+    @if $type == 'all' {
+        $border-width: border-width;
+    }
+
+    border: 0 solid $border-color;
+    #{$border-width}: $size;
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+
+        position: relative;
+        border: none !important;
+
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: -33.33%;
+            bottom: -33.33%;
+            left: 0;
+            border: 0 solid $border-color;
+            pointer-events: none; // 解决挡住点击事件的问题
+            width: 133.33%;
+            box-sizing: border-box;
+            transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+            -o-transform-origin: 0 0;
+            transform: scale(.75);
+            -moz-transform: scale(.75);
+            -webkit-transform: scale(.75);
+            -o-transform: scale(.75);
+            border-radius: $border-radius;
+        }
+
+        &::after {
+            #{$border-width}: $size;
+        }
+    }
+
+    @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+
+        position: relative;
+        border: none !important;
+
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: -100%;
+            bottom: -100%;
+            left: 0;
+            border: 0 solid $border-color;
+            pointer-events: none; // 解决挡住点击事件的问题
+            width: 200%;
+            box-sizing: border-box;
+            transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+            -o-transform-origin: 0 0;
+            transform: scale(.5);
+            -moz-transform: scale(.5);
+            -webkit-transform: scale(.5);
+            -o-transform: scale(.5);
+            border-radius: $border-radius;
+        }
+
+        &::after {
+            #{$border-width}: $size;
+        }
+    }
+}

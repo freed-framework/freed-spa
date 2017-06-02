@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["es2015", { "modules": false }],
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-async-to-generator",
+    "transform-do-expressions",
+    "syntax-do-expressions",
+    "transform-runtime"
+  ],
+}
