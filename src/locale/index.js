@@ -7,6 +7,6 @@
 
 import zhCn from './zh_CN';
 
-export default {
+export {
     zhCn
 };

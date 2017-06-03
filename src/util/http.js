@@ -7,13 +7,11 @@ import axios from 'axios';
 import * as util from './util';
 import { handleResult, createLoading, handleError } from './httpUtil';
 
-/* eslint-disable no-undef */
-const baseURL = (typeof config !== 'undefined') ? `${config.host}: ${config.port}` : '';
-/* eslint-enable no-undef */
-
 // axios 配置
 axios.defaults.timeout = 10000;
-axios.defaults.baseURL = `${baseURL}/api`;
+/* eslint-disable no-undef */
+axios.defaults.baseURL = typeof config !== 'undefined' && config.apiHost ? config.apiHost : '';
+/* eslint-enable no-undef */
 
 export default class http {
     /**
@@ -37,13 +35,15 @@ export default class http {
         newUrl = newUrl.indexOf('?') > 0
             ? `${encodeURI(newUrl)}&${queryString}`
             : `${encodeURI(newUrl)}?${queryString}`;
-        return axios.get(newUrl).then((res) => {
-            closeLoading();
-            return handleResult(res.data);
-        }).catch((error) => {
-            closeLoading();
-            return handleError(error);
-        })
+        return axios.get(newUrl)
+            .then((res) => {
+                closeLoading();
+                return handleResult(res.data);
+            })
+            .catch((error) => {
+                closeLoading();
+                return handleError(error);
+            })
     }
 
     /**
@@ -58,13 +58,15 @@ export default class http {
         if (!noloading) {
             closeLoading = createLoading(url);
         }
-        return axios.post(url, options).then((res) => {
-            closeLoading();
-            return handleResult(res.data);
-        }).catch((error) => {
-            closeLoading();
-            return handleError(error);
-        })
+        return axios.post(url, options)
+            .then((res) => {
+                closeLoading();
+                return handleResult(res.data);
+            })
+            .catch((error) => {
+                closeLoading();
+                return handleError(error);
+            })
     }
 
     /**
@@ -79,13 +81,15 @@ export default class http {
         if (!noloading) {
             closeLoading = createLoading(url);
         }
-        return axios.put(url, options).then((res) => {
-            closeLoading();
-            return handleResult(res.data);
-        }).catch((error) => {
-            closeLoading();
-            return handleError(error);
-        })
+        return axios.put(url, options)
+            .then((res) => {
+                closeLoading();
+                return handleResult(res.data);
+            })
+            .catch((error) => {
+                closeLoading();
+                return handleError(error);
+            })
     }
 
     /**
@@ -100,12 +104,14 @@ export default class http {
         if (!noloading) {
             closeLoading = createLoading(url);
         }
-        return axios.delete(url, { body: JSON.stringify(options) }).then((res) => {
-            closeLoading();
-            return handleResult(res.data);
-        }).catch((error) => {
-            closeLoading();
-            return handleError(error);
-        })
+        return axios.delete(url, { body: JSON.stringify(options) })
+            .then((res) => {
+                closeLoading();
+                return handleResult(res.data);
+            })
+            .catch((error) => {
+                closeLoading();
+                return handleError(error);
+            })
     }
 }

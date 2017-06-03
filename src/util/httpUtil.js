@@ -101,6 +101,9 @@ export const showError = (mes) => {
  * @param {Object} error 报错信息
  */
 export const handleError = (error) => {
-    showError(getLocaleMsg('error'));
+    const { code } = error;
+    if (code && code !== 401) {
+        showError(getLocaleMsg('error'));
+    }
     return Promise.reject(error);
 }
