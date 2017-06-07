@@ -9,6 +9,12 @@
     "transform-async-to-generator",
     "transform-do-expressions",
     "syntax-do-expressions",
-    "transform-runtime"
+    "transform-runtime",
+    [
+      "import", {
+        "libraryName": "antd",
+        "style": "css"
+      }
+    ]
   ],
 }

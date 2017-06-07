@@ -46,7 +46,8 @@
         "arrow-body-style": ["error", "as-needed"],
         "linebreak-style": 0,
         "no-plusplus": 0,
-        "class-methods-use-this": 0
+        "class-methods-use-this": 0,
+        "import/prefer-default-export": 0
     },
     "globals": {
         "__PRO__": true
