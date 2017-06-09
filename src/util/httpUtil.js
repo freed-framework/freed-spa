@@ -17,11 +17,16 @@ import { getLocaleMsg } from './util';
  * @param { Function } reject Promise Reject
  */
 export const handleResult = (res) => {
-    const { code } = res;
-    if (parseInt(code, 10) === 200) {
-        return Promise.resolve(res);
+    const response = res;
+    response.code = parseInt(response.code, 10);
+
+    const { code } = response;
+
+    if (code === 200) {
+        return Promise.resolve(response);
     }
-    return Promise.reject(res);
+
+    return Promise.reject(response);
 }
 
 // 是够显示后端错误提示
