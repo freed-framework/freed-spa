@@ -11,11 +11,10 @@ const HtmlWebPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT_PATH = path.resolve(__dirname);
-
 const ENV = process.env.NODE_ENV;
-const __PRO__ = ENV === 'production';
-
+const __PRO__ = ENV === 'pro' || ENV === 'sit';
 const configFiles = glob.sync(process.cwd() + '/config/*.js');
+
 /**
  * 获取公有配置
  * @returns {*}

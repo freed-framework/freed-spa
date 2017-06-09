@@ -155,7 +155,12 @@ function fixResponder(url, pattern, responder) {
 
     for (var i = 0, l = m.length; i < l; i++) {
         newRx = new RegExp('\\$' + i, 'g');
-        responder = responder.replace(newRx, m[i]);
+
+        if (m[i] != null) {
+            responder = responder.replace(newRx, m[i]);
+        } else {
+            responder = responder.replace(newRx, '');
+        }
     }
 
     return responder;
