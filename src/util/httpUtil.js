@@ -18,10 +18,8 @@ import { getLocaleMsg } from './util';
  */
 export const handleResult = (res) => {
     const { code } = res;
-    if (code === 200) {
+    if (parseInt(code, 10) === 200) {
         return Promise.resolve(res);
-    } else if (code === 401) {
-        return Promise.reject(res);
     }
     return Promise.reject(res);
 }
