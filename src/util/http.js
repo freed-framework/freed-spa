@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 import * as util from './util';
-import { handleResult, createLoading, handleError } from './httpUtil';
+import { handleResult, createLoading, handleError, showError } from './httpUtil';
 
 // axios 配置
 axios.defaults.timeout = 10000;
@@ -58,6 +58,10 @@ export default class http {
                 return handleResult(res.data);
             })
             .catch((error) => {
+                const { status } = error.response;
+                if (status !== 200) {
+                    showError();
+                }
                 closeLoading();
                 return handleError(error);
             })
