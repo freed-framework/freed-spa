@@ -84,7 +84,8 @@ export const createLoading = (url) => {
  *
  * @param {string} mes 错误信息
  */
-export const showError = (mes) => {
+export const showError = () => {
+    const mes = getLocaleMsg('error');
     if (!errorIsShow) {
         errorIsShow = true;
         Modal.error({
@@ -103,10 +104,4 @@ export const showError = (mes) => {
  *
  * @param {Object} error 报错信息
  */
-export const handleError = (error) => {
-    const { code } = error;
-    if (code && code !== 401) {
-        showError(getLocaleMsg('error'));
-    }
-    return Promise.reject(error);
-}
+export const handleError = (error) => Promise.reject(error);
