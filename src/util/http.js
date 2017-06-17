@@ -58,9 +58,11 @@ export default class http {
                 return handleResult(res.data);
             })
             .catch((error) => {
-                const { status } = error.response;
-                if (status !== 200) {
-                    showError();
+                if (error.response) {
+                    const { status } = error.response;
+                    if (status !== 200) {
+                        showError();
+                    }
                 }
                 closeLoading();
                 return handleError(error);
