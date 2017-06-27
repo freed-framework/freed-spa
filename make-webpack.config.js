@@ -4,6 +4,7 @@
  *
  */
 const glob = require('glob');
+const fs = require('fs');
 const path = require('path');
 const process = require('process');
 const webpack = require('webpack');
@@ -12,20 +13,46 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT_PATH = path.resolve(__dirname);
 const ENV = process.env.NODE_ENV;
-const __PRO__ = ENV === 'pro' || ENV === 'sit';
+const CONF = process.env.CONF;
+const __PRO__ = ENV === 'pro';
 const configFiles = glob.sync(process.cwd() + '/config/*.js');
+
+const isWebFeSelf = __dirname === process.cwd();
+
+/**
+ * By Rongyao ^.^
+ * @return {Array}
+ */
+function getBabelLoaderInclude() {
+    var babelLoaderInclude = [];
+    fs.readdirSync(__dirname).forEach(function (file) {
+        if (['dist', 'tools', 'node_modules', 'gulpfile.js'].indexOf(file) <= 0
+            && file.indexOf('.') !== 0
+            && file.indexOf('.config') <= 0) {
+            babelLoaderInclude.push(path.join(__dirname, file));
+        }
+    });
+
+    if (!isWebFeSelf) {
+        fs.readdirSync(process.cwd()).forEach(function (file) {
+            if (['dist', 'tools', 'mock', 'node_modules', 'gulpfile.js'].indexOf(file) <= 0
+                && file.indexOf('.') !== 0
+                && file.indexOf('.config') <= 0) {
+                babelLoaderInclude.push(path.join(process.cwd(), file));
+            }
+        });
+    }
+
+    return babelLoaderInclude;
+}
 
 /**
  * 获取公有配置
  * @returns {*}
  */
 function getPublicConfig() {
-    if (ENV === undefined) {
-        return null;
-    }
-
     let f = null;
-    let type = ENV === 'pro' ? '' : '.' + ENV;
+    let type = !CONF ? '' : '.' + CONF;
     let fileName = 'config' + type + '.js';
 
     configFiles.forEach(function (item) {
@@ -49,14 +76,17 @@ function getPublicConfig() {
 const maker = function (options) {
     // 默认配置
     let entry = {
-        vendor: [],
+        common: [],
+        vendor: [
+            'react-redux', 'redux-thunk', 'react-router', 'react-router-dom'
+        ],
     };
 
     Object.assign(entry, options.entry);
 
     const publicConfig = getPublicConfig();
     if (publicConfig !== null) {
-        entry.common = publicConfig;
+        entry.vendor = entry.vendor.concat([publicConfig]);
     }
 
     let hotServer = 'http://0.0.0.0:8899' || options.hotServer;
@@ -68,22 +98,24 @@ const maker = function (options) {
 
     if (__PRO__) {
         plugins = plugins.concat(new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
+            // 是否最紧凑的输出
             beautify: false,
-            // 删除所有的注释
+            // 是否需要注释
             comments: false,
             compress: {
                 // 在UglifyJs删除没有用到的代码时不输出警告
                 warnings: false,
                 // 删除所有的 `console` 语句
                 // 还可以兼容ie浏览器
-                drop_console: true,
+                // drop_console: true,
                 // 内嵌定义了但是只用到一次的变量
                 collapse_vars: true,
                 // 提取出出现多次但是没有定义成变量去引用的静态值
                 reduce_vars: true,
             }
         }));
+
+        output.publicPath = './';
     } else {
         entry.vendor = entry.vendor.concat([
             'react-hot-loader/patch',
@@ -106,16 +138,24 @@ const maker = function (options) {
     }
 
     plugins = plugins.concat([
-        // 提取所有打包后 js 入口文件中的公共部分
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common',
             minChunks: 2,
             chunks: Object.keys(entry).filter(key => key !== 'vendor')
         }),
+
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity
-        })
+        }),
+
+        new ExtractTextPlugin({
+            filename: '[name].[chunkhash:8].css',
+            // filename: (getPath) => getPath('[name].css').replace(/\//g, '-'),
+            allChunks: true,
+        }),
+
+        new webpack.NoEmitOnErrorsPlugin(),
     ]);
 
     return {
@@ -129,18 +169,23 @@ const maker = function (options) {
         // 插件配制
         plugins: plugins.concat(options.plugins),
 
+        externals: Object.assign({
+            'react': 'React',
+            'react-dom': 'ReactDOM',
+        }, options.externals || {}),
+
         // loaders 配制
         module: {
             rules: [
                 {
                     test: /\.jsx?$/,
                     use: ['babel-loader'],
-                    exclude: /node_modules/
+                    include: getBabelLoaderInclude(),
                 },
                 {
                     test: /\.scss$/,
                     use: ExtractTextPlugin.extract({
-                        fallback: "style-loader",
+                        fallback: 'style-loader',
                         use: [
                             'css-loader',
                             'autoprefixer-loader',
