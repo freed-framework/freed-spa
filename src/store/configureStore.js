@@ -25,7 +25,7 @@ const history = createHistory({
 const historyMiddleware = routerMiddleware(history);
 
 const middlewareStore = process.env.NODE_ENV === 'production'
-    ? applyMiddleware(...middleware)
+    ? applyMiddleware(...[thunk])
     : composeWithDevTools(applyMiddleware(...[historyMiddleware, thunk, logger]));
 
 export default function configureStore(initialState = Immutable.fromJS({})) {
