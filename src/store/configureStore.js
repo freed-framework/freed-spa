@@ -5,7 +5,7 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Immutable from 'immutable';
 import createHistory from 'history/createHashHistory';
@@ -23,16 +23,16 @@ const history = createHistory({
     queryKey: true,
 });
 const historyMiddleware = routerMiddleware(history);
-const middleware = [historyMiddleware, thunk, logger];
+
+const middlewareStore = process.env.NODE_ENV === 'production'
+    ? applyMiddleware(...middleware)
+    : composeWithDevTools(applyMiddleware(...[historyMiddleware, thunk, logger]));
 
 export default function configureStore(initialState = Immutable.fromJS({})) {
     const store = createStore(
         createReducer(),
         initialState,
-        // Debug
-        composeWithDevTools(applyMiddleware(...middleware)),
-        // Pro
-        // applyMiddleware(...middleware)
+        middlewareStore
     );
 
     store.asyncReducers = Immutable.fromJS({});

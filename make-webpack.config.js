@@ -14,7 +14,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ROOT_PATH = path.resolve(__dirname);
 const ENV = process.env.NODE_ENV;
 const CONF = process.env.CONF;
-const __PRO__ = ENV === 'pro';
+const __PRO__ = ENV === 'production';
 const configFiles = glob.sync(process.cwd() + '/config/*.js');
 
 const isWebFeSelf = __dirname === process.cwd();
@@ -115,7 +115,7 @@ const maker = function (options) {
             }
         }));
 
-        output.publicPath = './';
+        // output.publicPath = './';
     } else {
         entry.vendor = entry.vendor.concat([
             'react-hot-loader/patch',
@@ -153,6 +153,12 @@ const maker = function (options) {
             filename: '[name].[chunkhash:8].css',
             // filename: (getPath) => getPath('[name].css').replace(/\//g, '-'),
             allChunks: true,
+        }),
+
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(ENV),
+            }
         }),
 
         new webpack.NoEmitOnErrorsPlugin(),
