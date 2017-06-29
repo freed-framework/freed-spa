@@ -10,6 +10,7 @@ const process = require('process');
 const webpack = require('webpack');
 const HtmlWebPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ObjectAssign = require('object-assign');
 
 const ROOT_PATH = path.resolve(__dirname);
 const ENV = process.env.NODE_ENV;
@@ -82,7 +83,7 @@ const maker = function (options) {
         ],
     };
 
-    Object.assign(entry, options.entry);
+    ObjectAssign(entry, options.entry);
 
     const publicConfig = getPublicConfig();
     if (publicConfig !== null) {
@@ -114,8 +115,6 @@ const maker = function (options) {
                 reduce_vars: true,
             }
         }));
-
-        // output.publicPath = './';
     } else {
         entry.vendor = entry.vendor.concat([
             'react-hot-loader/patch',
