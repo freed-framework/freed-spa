@@ -26,7 +26,7 @@ module.exports = {
 
         var reqData = {
             "loginname": parsms.account,
-            "pw": pw
+            "pw": parsms.pw
         }
 
         //拿到登录地址，根据协议类型，设置不同的option
