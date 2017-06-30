@@ -70,6 +70,10 @@ function getPublicConfig() {
     return f;
 }
 
+const vendor = [
+    'react-redux', 'redux-thunk', 'react-router', 'react-router-dom'
+];
+
 /**
  * 构建入口
  * @param options
@@ -78,9 +82,7 @@ const maker = function (options) {
     // 默认配置
     let entry = {
         common: [],
-        vendor: [
-            'react-redux', 'redux-thunk', 'react-router', 'react-router-dom'
-        ],
+        vendor: __PRO__ ? vendor : ['react', 'react-dom'].concat(vendor),
     };
 
     ObjectAssign(entry, options.entry);
@@ -137,11 +139,11 @@ const maker = function (options) {
     }
 
     plugins = plugins.concat([
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            minChunks: 2,
-            chunks: Object.keys(entry).filter(key => key !== 'vendor')
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'common',
+        //     minChunks: 2,
+        //     chunks: Object.keys(entry).filter(key => key !== 'vendor')
+        // }),
 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
@@ -174,10 +176,10 @@ const maker = function (options) {
         // 插件配制
         plugins: plugins.concat(options.plugins),
 
-        externals: Object.assign({
+        externals: Object.assign(__PRO__ ? {
             'react': 'React',
             'react-dom': 'ReactDOM',
-        }, options.externals || {}),
+        } : {}, options.externals || {}),
 
         // loaders 配制
         module: {
