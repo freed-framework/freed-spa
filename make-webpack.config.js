@@ -139,11 +139,11 @@ const maker = function (options) {
     }
 
     plugins = plugins.concat([
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'common',
-        //     minChunks: 2,
-        //     chunks: Object.keys(entry).filter(key => key !== 'vendor')
-        // }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            minChunks: 2,
+            chunks: Object.keys(entry).filter(key => key !== 'vendor')
+        }),
 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
