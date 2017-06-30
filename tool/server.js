@@ -13,7 +13,7 @@ var WebpackDevServer = require('webpack-dev-server');
  * 引入构建配置
  */
 var webpackConfig = require(
-    path.join(process.cwd(), './webpack.config')
+    path.join(process.cwd(), './webpack.config.dev')
 );
 
 /**
@@ -24,11 +24,39 @@ var nporxy = require('./proxy/nproxy');
 
 function startProxy(proxyConfig) {
     // 启动 代理服务
-    nporxy({
-        host: proxyConfig.host,
-        port: proxyConfig.port,
-    }, {
-        rules: proxyConfig.rules
+    nporxy(proxyConfig.port, proxyConfig);
+}
+
+var auth = require('./auth/auth');
+
+/**
+ * 登录
+ */
+function login(userMsg, proxyConfig) {
+    auth.login({
+        url: userMsg.url,
+        method: 'POST',
+        account: userMsg.account,
+        pw: userMsg.pw,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }, function (data) {
+        var data = JSON.parse(data);
+        if (data.code === 0) {
+            console.log('login succcess!');
+            if (data.code == 0) {
+                proxyConfig.reqHeaders = {
+                    'sid': data.sid,
+                };
+            }
+
+            startProxy(proxyConfig);
+        } else {
+            console.log('login failed!');
+        }
+    }, function (err) {
+        console.log(err)
     });
 }
 
@@ -60,8 +88,13 @@ module.exports = function (options) {
         };
 
         Object.assign(proxyConfig, options.proxyConfig);
+    }
 
-        startProxy(options.proxyConfig);
+    // 启动模拟登陆
+    if (options.userMsg) {
+        login(options.userMsg, options.proxyConfig);
+    } else {
+        startProxy(proxyConfig);
     }
 
     /**
