@@ -33,27 +33,29 @@ var auth = require('./auth/auth');
  * 登录
  */
 function login(userMsg, proxyConfig) {
-    auth.login({
-        url: userMsg.url,
+    auth.login(Object.assign({
+        url: '',
         method: 'POST',
-        account: userMsg.account,
-        pw: userMsg.pw,
         headers: {
             'Content-Type': 'application/json'
         }
-    }, function (data) {
-        var data = JSON.parse(data);
-        if (data.code === 0) {
-            console.log('login succcess!');
-            if (data.code == 0) {
-                proxyConfig.reqHeaders = {
-                    'sid': data.sid,
-                };
-            }
+    }, userMsg), function (data) {
+        try {
+            var data = JSON.parse(data);
+            if (data.code === 0) {
+                console.log('login succcess!');
+                if (data.code == 0) {
+                    proxyConfig.reqHeaders = {
+                        'sid': data.sid,
+                    };
+                }
 
+                startProxy(proxyConfig);
+            } else {
+                console.log('login failed!');
+            }
+        } catch (ex) {
             startProxy(proxyConfig);
-        } else {
-            console.log('login failed!');
         }
     }, function (err) {
         console.log(err)

@@ -11,34 +11,30 @@ var url = require('url');
 
 module.exports = {
 
-    login: function(parsms, callback) {
-
-        var options = {
-            url: parsms.url,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        };
-
+    login: function(params, callback) {
         //密码加密
-        // var pw = this.cryptoPw(parsms.pw);
-
-        var reqData = {
-            "loginname": parsms.account,
-            "pw": parsms.pw
-        }
+        // var pw = this.cryptoPw(params.pw);
 
         //拿到登录地址，根据协议类型，设置不同的option
-        var address = url.parse(options.url);
-        options.host = address.host;
-        options.port = address.port || (address.protocol === 'https:' ? 443 : 80);
-        options.path = address.path;
+        var address = url.parse(params.url);
+        params.host = address.hostname;
+        params.port = address.port;
+        params.path = address.path;
+
+        var req = {};
+        Object.keys(params.req).forEach(k => {
+            req[k] = params.req[k];
+        });
+
+        delete params.req;
 
         var requester = address.protocol === 'https:' ? https : http;
-        var post_req = requester.request(options, function(response) {
+
+        var post_req = requester.request(params, function(response) {
             var responseText = [];
             var size = 0;
+
+            response.setEncoding('utf8');
 
             // 接收数据
             response.on('data', function(data) {
@@ -52,7 +48,7 @@ module.exports = {
             });
         });
 
-        post_req.write(JSON.stringify(reqData));
+        post_req.write(JSON.stringify(req));
         post_req.end();
     },
     // sha1加密密码
