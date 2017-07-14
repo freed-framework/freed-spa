@@ -45,6 +45,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "bundle-loader": "^0.5.5",
     "child_process": "^1.0.2",
+    "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
     "eslint": "^3.8.0",
