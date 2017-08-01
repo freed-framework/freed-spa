@@ -60,7 +60,8 @@ export default class http {
             .catch((error) => {
                 if (error.response) {
                     const { status } = error.response;
-                    if (status !== 200) {
+                    // @Shijinhua 之后修改为使用过滤器来判断哪些code 情况不show error
+                    if (status !== 200 && status !== 401) {
                         showError();
                     }
                 }
