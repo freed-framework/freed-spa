@@ -8,8 +8,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import store, { updateAsyncReducers, history } from './store';
+
+const getConfirmation = (message, callback) => {
+    const allowTransition = window.confirm(message);
+    callback(allowTransition);
+};
+
+const supportsHistory = 'pushState' in window.history;
 
 export default class App extends Component {
     constructor(props) {
@@ -34,6 +42,13 @@ export default class App extends Component {
                 <Router history={history}>
                     {this.props.children}
                 </Router>
+                <BrowserRouter
+                    forceRefresh={!supportsHistory}
+                    getUserConfirmation={getConfirmation}
+                    keyLength={12}
+                >
+                    {this.props.children}
+                </BrowserRouter>
             </Provider>
         );
     }
