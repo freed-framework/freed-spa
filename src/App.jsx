@@ -19,6 +19,9 @@ const getConfirmation = (message, callback) => {
 
 const supportsHistory = 'pushState' in window.history;
 
+// 手动dispatch需要用到
+export { store };
+
 export default class App extends Component {
     constructor(props) {
         super(props);
