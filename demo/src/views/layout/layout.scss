@@ -1,0 +1,118 @@
+/**
+ * @file layout.scss
+ * @author denglingbo
+ */
+
+/**
+ * 主容器
+ */
+.ant-layout {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    /**
+     * Header
+     */
+    &-header {
+        position: relative;
+        padding: 0;
+        height: 50px;
+        line-height: 50px;
+        z-index: 2;
+        background: #eee;
+    }
+
+    /**
+     * 存在侧边栏的 右侧 bar
+     */
+    &-has-sider {
+        position: absolute;
+        z-index: 1;
+        top: 50px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &-sider {
+        height: 100%;
+        overflow-y: auto;
+
+        /**
+         * 侧边栏 合拢之后需要把 sider 的 overflow-y 修改一下，不然无法显示
+         */
+        &-collapsed {
+            overflow-y: visible;
+        }
+    }
+
+    /**
+     * 内容主容器
+     */
+    &-content {
+        height: 100%;
+        overflow: hidden;
+
+        /**
+         * 内容容器
+         */
+        .content-main {
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+    }
+
+    .ant-side-collapse-button {
+        width: 200px;
+        height: 35px;
+        line-height: 35px;
+        position: fixed;
+        bottom: 0;
+        background: #656565;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+}
+
+/**
+ * 右侧边栏 合拢后的样式
+ */
+.ant-layout-sider {
+    &-collapsed {
+        flex: 0 0 60px !important;
+        transition: all 0.3s ease;
+
+        .ant-side-collapse-button {
+            width: 60px !important;
+            transition: all 0.3s ease;
+        }
+
+        .ant-menu-submenu-title {
+            span {
+                span {
+                    display: none;
+                }
+            }
+
+            &:after {
+                display: none;
+            }
+
+            .anticon {
+                font-size: 16px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.ant-layout-content {
+    background: #fff;
+    padding: 15px;
+}

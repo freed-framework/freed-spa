@@ -1,0 +1,14 @@
+# webpack compile ignore
+dist/
+
+# node ignore
+node_modules/
+
+#ide file
+.DS_Store
+.idea/
+
+#log file
+ncp-debug.log
+npm-debug.log
+npm-debug.log.*

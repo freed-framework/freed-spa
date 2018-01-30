@@ -1,0 +1,65 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint-config-airbnb"
+    ],
+    "plugins": [
+        "react"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jquery": true,
+        "mocha": true
+    },
+    "rules": {
+        "indent": [
+            2,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "import/no-extraneous-dependencies": 0,
+        "object-curly-spacing": 0,
+        "no-underscore-dangle": 0,
+        "comma-dangle": 0,
+        "react/jsx-indent": [
+            2,
+            4
+        ],
+        "react/jsx-indent-props": [
+            2,
+            4
+        ],
+        "react/no-array-index-key": "warn",
+        "react/require-default-props": 0,
+        "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+        "jsx-a11y/no-static-element-interactions": 0,
+        "semi": 0,
+        "arrow-parens": 0,
+        "arrow-body-style": ["error", "as-needed"],
+        "no-console": "error",
+        "no-alert": "error",
+        "linebreak-style": 0,
+        "no-plusplus": 0,
+        "class-methods-use-this": 0,
+        "import/prefer-default-export": 0,
+        "react/no-did-mount-set-state": 0,
+        "jsx-a11y/href-no-hash": 0,
+        "import/no-dynamic-require": 0,
+        "react/no-danger": 0
+    },
+    "globals": {
+        "__TYPE__": true
+    }
+}

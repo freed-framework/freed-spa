@@ -13,10 +13,12 @@
   ],
   "dependencies": {
     "antd": "^2.10.4",
+    "axios": "^0.16.1",
     "babel-runtime": "6.x",
     "connect": "^3.6.1",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
+    "imports-loader": "^0.7.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.3",
@@ -33,7 +35,6 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
-    "axios": "^0.16.1",
     "babel-core": "^6.21.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.10",
@@ -63,7 +64,6 @@
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
     "html-webpack-plugin": "^2.28.0",
-    "imports-loader": "^0.7.0",
     "json-loader": "^0.5.4",
     "less-loader": "^4.0.4",
     "node-sass": "^4.5.2",

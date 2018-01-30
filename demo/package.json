@@ -1,0 +1,19 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env CONF=dev node ./tool/server.js",
+    "test": "cross-env CONF=test node ./tool/server.js",
+    "pre-commit": "node ../node_modules/freed-spa/tool/hooks/pre-commit.js",
+    "lint": "../node_modules/.bin/eslint src/. --ext .js --ext .jsx"
+  },
+  "pre-commit": [
+    "pre-commit"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "deo",
+  "license": "ISC"
+}

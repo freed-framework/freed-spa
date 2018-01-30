@@ -1,0 +1,22 @@
+{
+    "code": 200,
+    "data": {
+        "name": "denglingbo",
+        "age": "12",
+        "level": 5,
+        "city": "Chengdu",
+        "admin": 1,
+        "menu": [
+            {
+                "code": "spgl",
+                "name": "商品管理",
+                "submenu": [
+                    {
+                        "code": "zsspgl",
+                        "name": "Sub 11111"
+                    }
+                ]
+            }
+        ]
+    }
+}
