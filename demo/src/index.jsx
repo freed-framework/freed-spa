@@ -5,8 +5,8 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FrameApp from 'freed-spa/src/App';
-import store from 'freed-spa/src/store';
+import FrameApp from 'freed-spa/tssrc/App';
+import store from 'freed-spa/tssrc/store';
 import App from './App';
 import reducers from './reducers';
 import { checkUser } from './actions/user';
@@ -15,6 +15,7 @@ import { checkUser } from './actions/user';
  * 启动 App
  */
 const startApp = (data) => {
+    console.log('startApp: ', data);
     ReactDOM.render(
         <FrameApp
             asyncReducers={reducers}

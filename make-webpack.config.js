@@ -190,6 +190,11 @@ const maker = function (options) {
                     include: getBabelLoaderInclude(),
                 },
                 {
+                    test: /\.tsx?$/,
+                    use: ['babel-loader', 'ts-loader'],
+                    exclude: /node_modules/,
+                },
+                {
                     test: /\.scss$/,
                     use: ExtractTextPlugin.extract({
                         fallback: 'style-loader',
@@ -245,12 +250,13 @@ const maker = function (options) {
             }, options.resolve.alias || {}),
 
             // 省略后缀
-            extensions: ['.js', '.jsx'],
+            extensions: ['.js', '.jsx', '.ts', '.tsx'],
 
             // 配置模块库所在的位置
             modules: [
                 path.resolve(ROOT_PATH, 'node_modules'),
-                path.join(ROOT_PATH, './src')
+                path.join(ROOT_PATH, './src'),
+                path.join(ROOT_PATH, './tssrc'),
             ].concat(options.resolve.modules)
         },
     };

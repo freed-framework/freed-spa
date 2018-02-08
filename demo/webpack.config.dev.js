@@ -43,7 +43,7 @@ var webpackConfig = makeWebpack({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
             'freed-spa': path.resolve(__dirname, '../'),
-        }
+        },
     },
 
     module: {
@@ -56,5 +56,5 @@ var webpackConfig = makeWebpack({
         ]
     }
 });
-
+console.log(webpackConfig)
 module.exports = webpackConfig;

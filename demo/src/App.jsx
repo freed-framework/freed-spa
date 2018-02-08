@@ -10,9 +10,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { Layout } from 'antd';
+import Bundle from 'freed-spa/src/bundle';
 import { receiveUser } from './actions/user';
 import AuthLayout from './views/layout/AuthLayout';
 import LoginLayout from './views/login/LoginLayout';
+import Route from './Route';
 import './style/common.scss';
 
 /**
@@ -46,9 +48,9 @@ class App extends PureComponent {
         if (user != null) {
             this.props.receiveUser(user);
         }
-
+console.log('componentWillMount: ', user)
         // 监听当前的地址变换
-        this.unlisten = history.listen(loc => pathListener(loc, history));
+        // this.unlisten = history.listen(loc => pathListener(loc, history));
 
         // pathListener(history.location, history);
 
@@ -70,13 +72,12 @@ class App extends PureComponent {
 
     render() {
         const { user } = this.props;
+console.log('render: ', user);
 
         return (
             <Layout>
-                {user ?
-                    <AuthLayout /> :
-                    <LoginLayout />
-                }
+                {JSON.stringify(user)}
+                <Route user={user} />
             </Layout>
         );
     }

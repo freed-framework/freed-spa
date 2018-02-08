@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { Layout } from 'antd';
+import Bundle from 'freed-spa/src/bundle';
 import SiderMenu from '../../common/siderMenu/SiderMenu';
 import Breadcrumb from '../../common/breadcrumb/Breadcrumb';
 import Route from '../../Route';
@@ -31,7 +32,7 @@ class AuthLayout extends PureComponent {
 
     render() {
         const { user, pub } = this.props;
-
+console.log('AuthLayout: ', this.props);
         return (
             <Layout>
                 <Header>Header</Header>
@@ -40,7 +41,7 @@ class AuthLayout extends PureComponent {
 
                     {/* 侧边栏容器 */}
                     <Sider collapsed={pub.collapsed}>
-                        <SiderMenu menu={user.menu} />
+                        {/* <SiderMenu menu={user.menu} /> */}
                     </Sider>
 
                     {/* 内容主容器 */}
@@ -50,7 +51,8 @@ class AuthLayout extends PureComponent {
 
                         {/* 内容容器 */}
                         <div className="content-main">
-                            <Route menu={user.menu} />
+                            {/* <Route menu={user.menu} /> */}
+                            <Route />
                         </div>
                     </Content>
                 </Layout>

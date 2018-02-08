@@ -1,28 +1,27 @@
 /**
- * @file App.js
+ * @file App
  * @author deo
  *
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as React from 'react';
 import { Provider } from 'react-redux';
-// import { BrowserRouter as Router } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
-import store, { updateAsyncReducers } from './store';
+import store, { updateAsyncReducers, history } from './store/index';
 
-const getConfirmation = (message, callback) => {
+const getConfirmation = (message: string, callback: Function): void => {
     const allowTransition = window.confirm(message);
     callback(allowTransition);
 };
 
-const supportsHistory = 'pushState' in window.history;
+const supportsHistory: boolean = 'pushState' in history;
 
-// 手动dispatch需要用到
-export { store };
+interface AppProps {
+    asyncReducers: any;
+    children: JSX.Element,
+}
 
-export default class App extends Component {
-    constructor(props) {
+export default class App extends React.Component<AppProps, any> {
+    constructor(props: AppProps) {
         super(props);
     }
 
@@ -51,9 +50,4 @@ export default class App extends Component {
             </Provider>
         );
     }
-}
-
-App.propTypes = {
-    children: PropTypes.node.isRequired,
-    asyncReducers: ImmutablePropTypes.map,
 }

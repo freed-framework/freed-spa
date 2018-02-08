@@ -1,5 +1,5 @@
 /**
- * @file configureStore.js
+ * @file configureStore
  * @author deo
  */
 
@@ -8,17 +8,16 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Immutable from 'immutable';
-import createHistory from 'history/createHashHistory';
-// import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
-import createReducer from '../reducers';
+import createReducer from '../../src/reducers';
 
 // redux logger
 const logger = createLogger({ collapsed: true });
 
 const history = createHistory({
     // 相当于 rootPath
-    basename: '',
+    basename: '/',
     // 去除随机标识符
     queryKey: true,
 });

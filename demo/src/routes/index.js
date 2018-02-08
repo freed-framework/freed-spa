@@ -62,6 +62,23 @@ const routes = [
             }
         ]
     },
+    {
+        key: '404',
+        routes: [
+            {
+                path: '/404',
+                parent: '404',
+                key: 'notfount',
+                component: () => (
+                    <Route
+                        path="/404"
+                        exact
+                        render={() => <div>404</div>}
+                    />
+                )
+            }
+        ]
+    }
 ];
 
 export default routes;

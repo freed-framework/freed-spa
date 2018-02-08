@@ -77,10 +77,15 @@ export const getBreadcrumb = (pathname, menu) => {
                 name: '首页',
             })
         } else {
+            console.log('matchCurRoutes: ', menu, route.parent);
             // 获取当前路由名
             const mainMenu = findItem(menu, route.parent, 'code');
             // 获取当前路由名
             const subMenu = findItem(menu, route.key, 'code', 'submenu');
+
+            if (mainMenu === null || subMenu === null) {
+                return null;
+            }
 
             breadList.push({
                 name: mainMenu.name

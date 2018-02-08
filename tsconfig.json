@@ -20,6 +20,7 @@
     },
     "include": [
         "./src/**/*",
+        "./tssrc/**/*",
     ],
     "exclude": [
         "./node_modules"
